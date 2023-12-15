@@ -83,7 +83,7 @@ var insert_symbols = new function () {
                     })
                 }
             })
-        })
+        }, 100)
     }
 
     /**
