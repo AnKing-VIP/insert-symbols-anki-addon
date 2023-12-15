@@ -9,29 +9,22 @@ Note: For debugging, use either sys.stderr.write() or aqt.utils.showInfo().
 import os
 import sys
 
+from anki.utils import pointVersion
 import aqt
 from anki.hooks import addHook, wrap
 from aqt import browser, editor, mw, reviewer
 from aqt.editor import EditorWebView
 
 from .browser_replacer import BrowserReplacer
-from .get_version import *
 from .symbol_manager import SymbolManager
 from .symbol_window import SymbolWindow
 
 """ Loads filenames based on Anki version  """
 
-ANKI_VER = get_anki_version()
-
-# Add-on path changed between Anki 2.0 and Anki 2.1
-if ANKI_VER == ANKI_VER_PRE_2_1_0:
-    sys_encoding = sys.getfilesystemencoding()
-    ADDON_PATH = os.path.dirname(__file__).decode(sys_encoding)
-else:
-    ADDON_PATH = os.path.dirname(__file__)
+ADDON_PATH = os.path.dirname(__file__)
 
 # Webview requires different JS between Anki 2.1.40 and Anki 2.1.41
-if ANKI_VER <= ANKI_VER_PRE_2_1_41:
+if pointVersion() < 41:
     JS_FILE = "replacer_pre-2.1.41.js"
 else:
     JS_FILE = "replacer.js"

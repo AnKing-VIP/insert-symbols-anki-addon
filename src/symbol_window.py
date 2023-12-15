@@ -14,11 +14,8 @@ import csv
 
 from aqt.qt import *
 
-from .get_version import *
 from .symbol_manager import SymbolManager
 from .Ui_SymbolWindow import Ui_SymbolWindow
-
-ANKI_VER = get_anki_version()
 
 class SymbolWindow(QDialog):
     """
@@ -59,12 +56,8 @@ class SymbolWindow(QDialog):
 
         self.ui.tableWidget.cellClicked.connect(self.on_cell_clicked)
         h_header = self.ui.tableWidget.horizontalHeader()
-        if ANKI_VER == ANKI_VER_PRE_2_1_0:
-            h_header.setResizeMode(0, QHeaderView.ResizeMode.Stretch)
-            h_header.setResizeMode(1, QHeaderView.ResizeMode.Stretch)
-        else:
-            h_header.setSectionResizeMode(0, QHeaderView.ResizeMode.Stretch)
-            h_header.setSectionResizeMode(1, QHeaderView.ResizeMode.Stretch)
+        h_header.setSectionResizeMode(0, QHeaderView.ResizeMode.Stretch)
+        h_header.setSectionResizeMode(1, QHeaderView.ResizeMode.Stretch)
 
 
     """ Editor State Getters """
@@ -407,12 +400,8 @@ class SymbolWindow(QDialog):
         is valid; otherwise, an error will be displayed and the operation
         will abort.
         """
-        if ANKI_VER == ANKI_VER_PRE_2_1_0:
-            fname = QFileDialog.getOpenFileName(self, 'Open file', '', 
-                "CSV (*.csv)")
-        else:
-            fname, _ = QFileDialog.getOpenFileName(self, 'Open file', '',
-                "CSV (*.csv)")
+        fname, _ = QFileDialog.getOpenFileName(self, 'Open file', '',
+            "CSV (*.csv)")
         if not fname:
             return
 
@@ -475,12 +464,7 @@ class SymbolWindow(QDialog):
             else:
                 return
 
-        if ANKI_VER == ANKI_VER_PRE_2_1_0:
-            fname = QFileDialog.getSaveFileName(self, 'Save file', '', 
-                "CSV (*.csv)")
-        else:
-             fname, _ = QFileDialog.getSaveFileName(self, 'Save file', '', 
-                "CSV (*.csv)")
+        fname, _ = QFileDialog.getSaveFileName(self, 'Save file', '', "CSV (*.csv)")
         if not fname:
             return
 
