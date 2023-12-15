@@ -253,5 +253,4 @@ class SymbolManager(object):
         for (k, v) in self._symbols:
             query = "INSERT INTO %s VALUES (?, ?)"
             self._mw.col.db.execute(query % self.TBL_NAME, k, v)
-        self._mw.col.db.commit()
 
